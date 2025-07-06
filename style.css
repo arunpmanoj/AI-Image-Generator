@@ -9,27 +9,30 @@
 }
 
 :root {
-    --color-primary: #5C56E1;
-    --color-primary-dark: #5b21b6;
-    --color-accent: #8B5CF6;
+    --color-primary: #00BFA6;
+    --color-primary-dark: #00897B;
+    --color-accent: #FF6B6B;
     --color-card: #FFFFFF;
-    --color-input: #F1F1FF;
-    --color-text: #09090E;
-    --color-placeholder: #5C5A87;
-    --color-border: #D4D4ED;
-    --color-gradient: linear-gradient(135deg, #5C56E1, #8B5CF6);
+    --color-input: #F0FBFA;
+    --color-text: #1E293B;
+    --color-placeholder: #64748B;
+    --color-border: #C4E3DF;
+    --color-gradient: linear-gradient(135deg, #00BFA6, #FF6B6B);
 }
 
 body.dark-theme {
-    --color-card: #1E293B;
-    --color-input: #141B2D;
-    --color-text: #F3F4F6;
-    --color-placeholder: #A3B6DC;
+    --color-card: #0F172A;
+    --color-input: #1E293B;
+    --color-text: #F1F5F9;
+    --color-placeholder: #94A3B8;
     --color-border: #334155;
-
     background: var(--color-card);
-    background-image: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 35%), radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 35%), radial-gradient(circle at 50% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 40%);
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba(0, 191, 166, 0.12) 0%, transparent 35%),
+        radial-gradient(circle at 85% 30%, rgba(255, 107, 107, 0.12) 0%, transparent 35%),
+        radial-gradient(circle at 50% 80%, rgba(0, 191, 166, 0.08) 0%, transparent 40%);
 }
+
 
 body {
     display: flex;
@@ -363,26 +366,32 @@ body.dark-theme .container {
     text-align: center;
     color: var(--color-placeholder);
 }
-@media(max-width:768px){
-    .container{
+
+@media(max-width:768px) {
+    .container {
         padding: 18px;
     }
-    .header .logo-wrapper .logo{
-        height:50px;
+
+    .header .logo-wrapper .logo {
+        height: 50px;
         width: 51px;
         font-size: 1.25rem;
     }
-    .header .logo-wrapper h1{
+
+    .header .logo-wrapper h1 {
         font-size: 1.7rem;
     }
-    .main-content .prompt-actions{
+
+    .main-content .prompt-actions {
         grid-template-columns: 1fr;
         margin-top: -10px;
     }
-    .prompt-actions .generate-btn{
-        margin:10px 0 0 ;
+
+    .prompt-actions .generate-btn {
+        margin: 10px 0 0;
     }
-    .gallery-grid .img-card .img-overlay{
+
+    .gallery-grid .img-card .img-overlay {
         opacity: 1;
     }
 }
