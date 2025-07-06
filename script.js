@@ -1,6 +1,13 @@
 const themeToggle = document.querySelector(".theme-toggle");
 const promptBtn = document.querySelector(".prompt-btn");
 const promptInput = document.querySelector(".prompt-input");
+const promptForm = document.querySelector(".prompt-form");
+const modelSelect = document.getElementById("model-select");
+const ratioSelect = document.getElementById("ratio-select");
+const countSelect = document.getElementById("count-select");
+
+
+
 
 const examplePrompts = [
   "A magic forest with glowing plants and fairy homes among giant mushrooms",
@@ -33,9 +40,23 @@ const toggleTheme =()=>{
     localStorage.setItem("theme" , isDarkTheme ? "dark" : "light");
     themeToggle.querySelector("i").className = isDarkTheme ? "fa-solid fa-sun" : "fa-solid fa-moon";
 }
-themeToggle.addEventListener("click",toggleTheme);
+
+const handleFormSubmit =(e) =>{
+    e.preventDefault();
+    const selectedModel= modelSelect.value;
+    const imageCount = parseInt(countSelect.value) || 1;
+    const aspectRatio = ratioSelect.value || "1/1";
+    const promptText = promptInput.value.trim();
+
+    console.log(selectedModel,imageCount,aspectRatio,promptText);
+}
+
 promptBtn.addEventListener("click",() =>{
-    const prompt = examplePrompts[Math.floor(math.random() * examplePrompts.length)];
+    const prompt = examplePrompts[Math.floor(Math.random() * examplePrompts.length)];
     promptInput.value=prompt;
     promptInput.focus();
 } );
+
+promptForm.addEventListener("submit", handleFormSubmit);
+
+themeToggle.addEventListener("click",toggleTheme);
