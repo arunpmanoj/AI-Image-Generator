@@ -69,43 +69,33 @@ const updateImageCard = (imgIndex, imgUrl) => {
                         </div>`
 
 }
-
 const generateImages = async (selectedModel, imageCount, aspectRatio, promptText) => {
-    const MODEL_URL = `https://api-inference.huggingface.co/models/${selectedModel}`;
     const { width, height } = getImageDimensions(aspectRatio);
-    generateBtn.setAttribute("disabled","true");
+    generateBtn.setAttribute("disabled", "true");
 
     const imagePromises = Array.from({ length: imageCount }, async (_, i) => {
         try {
-            const response = await fetch(MODEL_URL, {
-                headers: {
-                    Authorization: `Bearer ${API_KEY}`,
-                    "Content-Type": "application/json",
-                    "x-use-cache": "false",
-                },
+            const response = await fetch("/.netlify/functions/generate", {
                 method: "POST",
-                body: JSON.stringify({
-                    inputs: promptText,
-                    parameters: { width, height },
-                    options: { wait_for_model: true, user_cache: false },
-                }),
+                body: JSON.stringify({ selectedModel, promptText, width, height }),
             });
 
             if (!response.ok) throw new Error((await response.json())?.error);
 
-            const result = await response.blob();
-            updateImageCard(i, URL.createObjectURL(result));
-        }
-        catch (error) {
+            const resultBlob = await response.blob();
+            updateImageCard(i, URL.createObjectURL(resultBlob));
+        } catch (error) {
             console.log(error);
             const imgCard = document.getElementById(`img-card-${i}`);
-            imgCard.classList.replace("loading","error");
-            imgCard.querySelector(".status-text").textContent = "Generation failed! check console for more details"
+            imgCard.classList.replace("loading", "error");
+            imgCard.querySelector(".status-text").textContent = "Generation failed!";
         }
-    })
+    });
+
     await Promise.allSettled(imagePromises);
     generateBtn.removeAttribute("disabled");
-}
+};
+
 
 const createImageCards = (selectedModel, imageCount, aspectRatio, promptText) => {
     for (let i = 0; i < imageCount; i++) {
